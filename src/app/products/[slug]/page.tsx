@@ -1,10 +1,8 @@
-// app/product/[slug]/page.tsx (or wherever your route is)
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
 function getImageUrl(img: any) {
   if (!img) return 'https://dummyimage.com/400x500';
@@ -20,7 +18,6 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
   if (!res.ok) return null;
   const data = await res.json();
   if (!data.data || !data.data[0]) return null;
-
   const item = data.data[0];
   return {
     id: item.id,
@@ -53,14 +50,14 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
   };
 }
 
-interface ProductDetailPageProps {
-  params: {
-    slug: string;
-  };
-}
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const product = await getProductBySlug(params.slug);
   if (!product) return notFound();
 
   return (

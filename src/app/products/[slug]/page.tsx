@@ -13,7 +13,7 @@ function getImageUrl(img: any) {
 async function getProductBySlug(slug: string): Promise<Product | null> {
   const res = await fetch(
     `${API_URL}/api/artisanal-accessories?filters[slug][$eq]=${slug}&populate=*`,
-    { next: { revalidate: 3600 } } // Cache for 1 hour, adjust as needed
+    { next: { revalidate: 3600 } }
   );
   if (!res.ok) return null;
   const data = await res.json();
@@ -50,10 +50,11 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
   };
 }
 
-export default async function ProductDetailPage(
-  props: { params: { slug: string } }
-) {
-  const { params } = props;
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const product = await getProductBySlug(params.slug);
 
   if (!product) return notFound();

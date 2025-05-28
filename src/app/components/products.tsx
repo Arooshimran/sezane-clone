@@ -107,9 +107,9 @@ const Products = () => {
                 key={rowIdx}
                 className={`grid gap-8 ${row.length === 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'}`}
               >
-                {row.map((product) => (
+                {/* {row.map((product) => (
                   <ProductCard key={product.id} product={product} />
-                ))}
+                ))} */}
               </div>
             ))}
           </div>

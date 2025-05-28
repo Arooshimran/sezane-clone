@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
+import Link from 'next/link';
 import { Product, ProductImage } from './types';
 
 const API_URL =
@@ -52,38 +53,36 @@ const ProductCard = ({ product }: { product: Product }) => {
                         alt={product.title || ''}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
+                    {/* Image slide arrows */}
+                    {images.length > 1 && (
+                        <>
+                            <button
+                                onClick={handlePrev}
+                                className="absolute left-2 top-1/2 -translate-y-1/2  rounded-full p-1 z-10"
+                                aria-label="Previous image"
+                                tabIndex={0}
+                            >
+                                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M15 18l-6-6 6-6" />
+                                </svg>
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                className="absolute right-2 top-1/2 -translate-y-1/2  rounded-full p-1 z-10"
+                                aria-label="Next image"
+                                tabIndex={0}
+                            >
+                                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M9 6l6 6-6 6" />
+                                </svg>
+                            </button>
+                            {/* Optional: image index indicator */}
+                            <div className="absolute bottom-2 right-2 bg-white/70 rounded px-2 py-1 text-xs">
+                                {currentImgIdx + 1} / {images.length}
+                            </div>
+                        </>
+                    )}
                 </div>
-
-
-                {/* Image slide arrows */}
-                {images.length > 1 && (
-                    <>
-                        <button
-                            onClick={handlePrev}
-                            className="absolute left-2 top-1/2 -translate-y-1/2  rounded-full p-1 z-10"
-                            aria-label="Previous image"
-                            tabIndex={0}
-                        >
-                            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M15 18l-6-6 6-6" />
-                            </svg>
-                        </button>
-                        <button
-                            onClick={handleNext}
-                            className="absolute right-2 top-1/2 -translate-y-1/2  rounded-full p-1 z-10"
-                            aria-label="Next image"
-                            tabIndex={0}
-                        >
-                            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M9 6l6 6-6 6" />
-                            </svg>
-                        </button>
-                        {/* Optional: image index indicator */}
-                        <div className="absolute bottom-2 right-2 bg-white/70 rounded px-2 py-1 text-xs">
-                            {currentImgIdx + 1} / {images.length}
-                        </div>
-                    </>
-                )}
 
                 {/* Hover box styled like Sezane */}
                 {isHovered && (
@@ -138,14 +137,17 @@ const ProductCard = ({ product }: { product: Product }) => {
                         </div>
                         <div className="flex justify-between items-center mt-4">
                             <span className="text-xs text-gray-500 uppercase">TU</span>
-                            <button className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline">
+                            <Link
+                                href={`/products/${product.slug}`}
+                                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline"
+                            >
                                 Quick Shop
                                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                                     <path d="M6 6h9l-1.5 9h-9l-1.5-9z" />
                                     <circle cx="9" cy="15" r="1" />
                                     <circle cx="15" cy="15" r="1" />
                                 </svg>
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 )}

@@ -98,9 +98,8 @@ export default async function ArtisanalAccessoriesPage() {
               >
                 {row.map((product) => (
                   <div key={product.id} className="flex-1 overflow-hidden">
-                    <Link href={`/products/${product.slug}`}>
-                      <ProductCard product={product} />
-                    </Link>
+                      <ProductCard key={product.id} product={product} />
+                    
                   </div>
                 ))}
               </div>

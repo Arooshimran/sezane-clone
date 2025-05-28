@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';
-import Link from 'next/link';
 
 async function getArtisanalAccessories(): Promise<Product[]> {
   const res = await fetch(

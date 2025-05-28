@@ -34,7 +34,7 @@ export default function SezaneClone() {
       {/* Product grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
         {categories.map(({ title, img }) => (
-          <Link href="/shop" key={title}>
+          <Link href="/new-in" key={title}>
             <div className="relative aspect-[3/4] w-full">
               <Image src={img} alt={title} layout="fill" objectFit="cover" />
               <div className="absolute bottom-4 left-4 text-white text-xl font-bold drop-shadow-md">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
+import ProductTabs from './ProductTabs';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
@@ -62,65 +63,164 @@ export default async function ProductDetailPage({
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Images */}
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              {product.images.slice(0, 2).map((img, idx) => (
-                <div key={img.id} className="aspect-[3/4]">
-                  <img
-                    src={getImageUrl(img)}
-                    alt={`${product.title} ${idx + 1}`}
-                    className="w-full h-full object-cover rounded-md"
-                  />
-                </div>
-              ))}
-            </div>
-            {product.images.length > 2 && (
-              <div className="grid grid-cols-3 gap-3">
-                {product.images.slice(2).map((img, idx) => (
-                  <div key={img.id} className="aspect-[4/5]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left - Images Section */}
+          <div className="relative">
+            <div className="flex gap-4">
+              {/* Main large image */}
+              {product.images.length > 0 && (
+                <div className="flex-1">
+                  <div className="aspect-[4/5]">
                     <img
-                      src={getImageUrl(img)}
-                      alt={`${product.title} ${idx + 3}`}
-                      className="w-full h-full object-cover rounded"
+                      src={getImageUrl(product.images[0])}
+                      alt={product.title}
+                      className="w-full h-full object-cover"
                     />
                   </div>
+                </div>
+              )}
+              
+              {/* Small thumbnails column on the right */}
+              {product.images.length > 1 && (
+                <div className="flex flex-col gap-2 w-16">
+                  {product.images.slice(1).map((img, idx) => (
+                    <div key={img.id} className="aspect-[4/5]">
+                      <img
+                        src={getImageUrl(img)}
+                        alt={`${product.title} ${idx + 2}`}
+                        className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right - Product Info */}
+          <div className="space-y-8">
+            {/* Product Title and Brand */}
+            <div>
+              <h1 className="text-3xl font-bold text-black mb-2">
+                {product.title.toUpperCase()}
+              </h1>
+              <p className="text-lg text-gray-600 font-bold">
+                {product.category?.name || 'Brand'} — {Math.round(product.price)} {product.price.toString().includes('.') ? product.price.toString().split('.')[1] : ''}ARS
+              </p>
+            </div>
+
+            {/* Wishlist Icon */}
+            <div className="flex justify-end">
+              <button className="p-2 hover:bg-gray-50 rounded-full transition-colors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Navigation Tabs */}
+            {/* <div className="border-b border-gray-200">
+              <nav className="flex space-x-8">
+                <button className="border-b-2 border-black pb-2 text-sm font-bold text-black">
+                  DESCRIPTION
+                </button>
+                <button className="pb-2 text-sm font-bold text-gray-500 hover:text-black transition-colors">
+                  DETAILS & COMPOSITION
+                </button>
+                <button className="pb-2 text-sm font-bold text-gray-500 hover:text-black transition-colors">
+                  OUR ATELIERS
+                </button>
+              </nav>
+            </div> */}
+
+            {/* Product Description */}
+            <ProductTabs description={product.description} />
+
+            {/* Size Selection */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-medium text-black">Size</h3>
+              <div className="grid grid-cols-4 gap-2">
+                {['34', '36', '38', '40', '42', '44', '46'].map((size) => (
+                  <button
+                    key={size}
+                    className="border border-gray-300 py-3 px-4 text-center text-sm font-medium hover:border-black transition-colors bg-white"
+                  >
+                    {size}
+                  </button>
                 ))}
               </div>
-            )}
-          </div>
-          {/* Product Info */}
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-lg font-medium text-black mb-1">
-                {product.category?.name || 'Brand'}
-              </h2>
-              <h1 className="text-lg text-black">{product.title}</h1>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xl font-medium text-red-600">
-                ${Math.round(product.price)}
-              </span>
+
+            {/* Quality Icons */}
+            <div className="grid grid-cols-4 gap-4 py-6 border-t border-gray-100">
+              <div className="text-center relative group">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                  <img
+                    src="/oeko-tex-certified.webp"
+                    alt="OEKO TEX®"
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+                <p className="text-xs text-gray-600">OEKO TEX®</p>
+                <p className="text-xs text-gray-500">certified</p>
+                {/* Hover tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                  OEKO-TEX® Standard 100 certified product ensures harmful substances are not present
+                </div>
+              </div>
+              <div className="text-center relative group">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                  <img
+                    src="/organic-materials.webp"
+                    alt="Organic"
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+                <p className="text-xs text-gray-600">Organic</p>
+                <p className="text-xs text-gray-500">material</p>
+                {/* Hover tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                  Made with organic materials that are better for the environment
+                </div>
+              </div>
+              <div className="text-center relative group">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                  <img
+                    src="/recycled-packaging.webp"
+                    alt="Recycled"
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+                <p className="text-xs text-gray-600">Recycled</p>
+                <p className="text-xs text-gray-500">packaging</p>
+                {/* Hover tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                  Delivery packaging made from recycled and/or from sustainably managed forests certified fibres
+                </div>
+              </div>
+              <div className="text-center relative group">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                  <img
+                    src="/audited-factory.webp"
+                    alt="Audited"
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+                <p className="text-xs text-gray-600">Audited</p>
+                <p className="text-xs text-gray-500">factory</p>
+                {/* Hover tooltip */}
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                  Manufactured in facilities that meet our ethical and quality standards
+                </div>
+              </div>
             </div>
-            <div className="space-y-4">
-              <button className="flex-1 bg-black text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors">
-                Add To Bag
+
+            {/* Add to Cart Button */}
+            <div className="space-y-4 pt-4">
+              <button className="w-full bg-black text-white py-4 px-6 text-sm font-medium hover:bg-gray-800 transition-colors">
+                ADD TO CART
               </button>
-              <button className="border border-gray-300 py-3 px-6 rounded hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 bg-white">
-                Wishlist ♡
-              </button>
-            </div>
-            <div className="border-t pt-4">
-              <h4 className="font-medium text-black mb-2">Product Description</h4>
-              {product.description?.map((block, i) => (
-                <p key={i}>
-                  {block.children.map((child, j) => (
-                    <span key={j}>{child.text}</span>
-                  ))}
-                </p>
-              ))}
             </div>
           </div>
         </div>

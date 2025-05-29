@@ -53,10 +53,10 @@ const Products = () => {
           <div className="flex items-center justify-center space-x-12 py-4">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`text-sm tracking-wider transition-colors duration-200 ${
+              className={`font-['Oswald'] text-sm tracking-wider transition-colors duration-200 ${
                 selectedCategory === null
                   ? 'text-black font-medium'
-                  : 'text-gray-500 hover:text-black'
+                  : 'text-gray-500 hover:text-black '
               }`}
             >
               ALL

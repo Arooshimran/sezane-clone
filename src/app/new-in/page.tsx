@@ -4,7 +4,7 @@ import { Product } from '../components/types';
 
 async function getArtisanalAccessories(): Promise<Product[]> {
   const res = await fetch(
-    'https://celebrated-love-44f06665d3.strapiapp.com/api/artisanal-accessories?populate=*',
+    `${process.env.NEXT_PUBLIC_API_URL}/api/artisanal-accessories?populate=*`,
     { next: { revalidate: 3600 } } // Cache for 1 hour
   );
 

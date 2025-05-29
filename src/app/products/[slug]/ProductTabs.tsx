@@ -12,7 +12,7 @@ export default function ProductTabs({ description }: { description: any }) {
           {description?.map((block: any, i: number) => (
             <div key={i} className="space-y-2">
               {block.children.map((child: any, j: number) => (
-                <p key={j} className="text-gray-700 leading-relaxed">
+                <p key={j} className="text-gray-700 leading-relaxed font-['Oswald']">
                   • {child.text}
                 </p>
               ))}
@@ -25,7 +25,7 @@ export default function ProductTabs({ description }: { description: any }) {
       label: 'DETAILS & COMPOSITION',
       content: (
         <div className="space-y-2">
-          <p className="text-gray-700 leading-relaxed">Details and composition info coming soon.</p>
+          <p className="text-gray-700 leading-relaxed font-['Oswald']">Details and composition info coming soon.</p>
         </div>
       ),
     },
@@ -33,8 +33,8 @@ export default function ProductTabs({ description }: { description: any }) {
       label: 'OUR ATELIERS',
       content: (
         <div className="space-y-2">
-          <p className="text-gray-700 leading-relaxed font-bold">WHERE IS SÉZANE MADE?</p>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-700 leading-relaxed font-bold font-['Oswald']">WHERE IS SÉZANE MADE?</p>
+          <p className="text-gray-700 leading-relaxed font-['Oswald']">
             More than 2/3 of our products are produced in Europe, the rest all over the world, depending on the origin of raw materials, expertise, working conditions and production capacities. All of our workshops are audited by independent experts, in compliance with the standards we have selected (BSCI, SMETA, ICS or WCA audits).
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function ProductTabs({ description }: { description: any }) {
           {tabs.map((tab, idx) => (
             <button
               key={tab.label}
-              className={`pb-2 text-sm font-bold transition-colors ${
+              className={`pb-2 text-sm font-bold font-['Oswald'] transition-colors ${
                 activeTab === idx
                   ? 'text-black'
                   : 'text-gray-500 hover:text-black'

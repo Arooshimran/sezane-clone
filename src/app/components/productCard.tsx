@@ -47,7 +47,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="relative overflow-hidden bg-gray-50">
-                <div className="w-full aspect-[3/4] overflow-hidden bg-gray-100 relative">
+                <div className=" font-['Oswald'] w-full aspect-[3/4] overflow-hidden bg-gray-100 relative">
                     <img
                         src={mainImg}
                         alt={product.title || ''}
@@ -107,10 +107,10 @@ const ProductCard = ({ product }: { product: Product }) => {
                     >
                         <div className="flex justify-between items-start">
                             <div>
-                                <h3 className="font-bold text-lg uppercase tracking-wide leading-tight">
+                                <h3 className="font-['Oswald'] font-bold text-lg uppercase tracking-wide leading-tight">
                                     {product.title}
                                 </h3>
-                                <p className="font-bold text-base uppercase tracking-wide mt-1">
+                                <p className="font-['Oswald'] font-bold text-base uppercase tracking-wide mt-1">
                                     {product.price}AR$
                                 </p>
                             </div>
@@ -126,7 +126,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                             </button>
                         </div>
                         {/* Product options/description */}
-                        <div className="text-xs text-gray-700 mt-2 leading-snug">
+                        <div className="font-['Oswald'] text-xs text-gray-700 mt-2 leading-snug">
                             {product.description?.map((block, i) => (
                                 <p key={i}>
                                     {block.children.map((child, j) => (
@@ -139,9 +139,9 @@ const ProductCard = ({ product }: { product: Product }) => {
                             <span className="text-xs text-gray-500 uppercase">TU</span>
                             <Link
                                 href={`/products/${product.slug}`}
-                                className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline"
+                                className="font-['Oswald'] flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline"
                             >
-                                Quick Shop
+                                View Details
                                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                                     <path d="M6 6h9l-1.5 9h-9l-1.5-9z" />
                                     <circle cx="9" cy="15" r="1" />

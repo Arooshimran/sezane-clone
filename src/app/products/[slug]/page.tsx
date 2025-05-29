@@ -62,7 +62,13 @@ export default async function ProductDetailPage({
   if (!product) return notFound();
 
   return (
-    <div className="bg-white min-h-screen">
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundColor: "#f8f6f1",
+        backgroundImage: "url('/45-degree-fabric-light.webp')",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left - Images Section */}
@@ -99,17 +105,16 @@ export default async function ProductDetailPage({
           </div>
 
           {/* Right - Product Info */}
-          <div className="space-y-8">
+          <div className="space-y-2">
             {/* Product Title and Brand */}
             <div>
-              <h1 className="text-3xl font-bold text-black mb-2">
+              <h1 className="text-3xl font-bold text-black font-['Oswald']">
                 {product.title.toUpperCase()}
               </h1>
-              <p className="text-lg text-gray-600 font-bold">
+              <p className="text-lg text-gray-600 font-bold font-['Oswald']">
                 {product.category?.name || 'Brand'} — {Math.round(product.price)} {product.price.toString().includes('.') ? product.price.toString().split('.')[1] : ''}ARS
               </p>
             </div>
-
             {/* Wishlist Icon */}
             <div className="flex justify-end">
               <button className="p-2 hover:bg-gray-50 rounded-full transition-colors">
@@ -119,41 +124,11 @@ export default async function ProductDetailPage({
               </button>
             </div>
 
-            {/* Navigation Tabs */}
-            {/* <div className="border-b border-gray-200">
-              <nav className="flex space-x-8">
-                <button className="border-b-2 border-black pb-2 text-sm font-bold text-black">
-                  DESCRIPTION
-                </button>
-                <button className="pb-2 text-sm font-bold text-gray-500 hover:text-black transition-colors">
-                  DETAILS & COMPOSITION
-                </button>
-                <button className="pb-2 text-sm font-bold text-gray-500 hover:text-black transition-colors">
-                  OUR ATELIERS
-                </button>
-              </nav>
-            </div> */}
-
             {/* Product Description */}
             <ProductTabs description={product.description} />
 
-            {/* Size Selection */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium text-black">Size</h3>
-              <div className="grid grid-cols-4 gap-2">
-                {['34', '36', '38', '40', '42', '44', '46'].map((size) => (
-                  <button
-                    key={size}
-                    className="border border-gray-300 py-3 px-4 text-center text-sm font-medium hover:border-black transition-colors bg-white"
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Quality Icons */}
-            <div className="grid grid-cols-4 gap-4 py-6 border-t border-gray-100">
+            <div className="grid grid-cols-4 gap-4 py-2 border-t border-gray-100">
               <div className="text-center relative group">
                 <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
                   <img
@@ -162,10 +137,10 @@ export default async function ProductDetailPage({
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <p className="text-xs text-gray-600">OEKO TEX®</p>
-                <p className="text-xs text-gray-500">certified</p>
+                <p className="text-xs text-gray-600 font-['Oswald']">OEKO TEX®</p>
+                <p className="text-xs text-gray-500 font-['Oswald']">certified</p>
                 {/* Hover tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                <div className="font-['Oswald'] absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
                   OEKO-TEX® Standard 100 certified product ensures harmful substances are not present
                 </div>
               </div>
@@ -177,10 +152,10 @@ export default async function ProductDetailPage({
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <p className="text-xs text-gray-600">Organic</p>
-                <p className="text-xs text-gray-500">material</p>
+                <p className="text-xs text-gray-600 font-['Oswald']">Organic</p>
+                <p className="text-xs text-gray-500 font-['Oswald']">material</p>
                 {/* Hover tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                <div className=" font-['Oswald'] absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
                   Made with organic materials that are better for the environment
                 </div>
               </div>
@@ -192,10 +167,10 @@ export default async function ProductDetailPage({
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <p className="text-xs text-gray-600">Recycled</p>
-                <p className="text-xs text-gray-500">packaging</p>
+                <p className="text-xs text-gray-600 font-['Oswald']">Recycled</p>
+                <p className="text-xs text-gray-500 font-['Oswald']">packaging</p>
                 {/* Hover tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                <div className="font-['Oswald'] absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
                   Delivery packaging made from recycled and/or from sustainably managed forests certified fibres
                 </div>
               </div>
@@ -207,14 +182,31 @@ export default async function ProductDetailPage({
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <p className="text-xs text-gray-600">Audited</p>
-                <p className="text-xs text-gray-500">factory</p>
+                <p className="text-xs text-gray-600 font-['Oswald']">Audited</p>
+                <p className="text-xs text-gray-500 font-['Oswald']">factory</p>
                 {/* Hover tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
+                <div className="font-['Oswald'] absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-white border border-gray-200 shadow-lg text-xs text-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 w-48">
                   Manufactured in facilities that meet our ethical and quality standards
                 </div>
               </div>
             </div>
+
+            {/* Size Selection */}
+            <div className="space-y-2 mt-2">
+              <h3 className="text-sm font-medium text-black font-['Oswald']">Size</h3>
+              <div className="grid grid-cols-4 gap-2 text-black">
+                {['34', '36', '38', '40', '42', '44', '46'].map((size) => (
+                  <button
+                    key={size}
+                    className="border border-gray-300 py-3 px-4 text-center text-sm font-medium hover:border-black transition-colors bg-white"
+                  style={{backgroundColor: "#f8f6f1"}}>
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+           
 
             {/* Add to Cart Button */}
             <div className="space-y-4 pt-4">

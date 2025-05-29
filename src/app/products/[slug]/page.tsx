@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+const API_URL = 'https://celebrated-love-44f06665d3.strapiapp.com';
 
 function getImageUrl(img: any) {
   if (!img) return 'https://dummyimage.com/400x500';

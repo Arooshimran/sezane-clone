@@ -91,7 +91,7 @@ export default async function ArtisanalAccessoriesPage() {
             <div className="text-red-500 text-center mb-4">{error}</div>
           )}
           {!error && products.length === 0 && (
-            <div className="text-center text-gray-500">No products found.</div>
+            <div className="text-center text-gray-500">Products not found</div>
           )}
           <div className="flex flex-col gap-8">
             {productRows.map((row, idx) => (

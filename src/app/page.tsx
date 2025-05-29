@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link'; // Add this import
+import Link from 'next/link';
 
 const categories = [
   { title: 'SHOP', img: '/shop.avif' },
@@ -33,8 +33,11 @@ export default function SezaneClone() {
 
       {/* Product grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
-        {categories.map(({ title, img }) => (
-          <Link href="/new-in" key={title}>
+        {categories.map(({ title, img }, idx) => (
+          <Link
+            href={idx % 2 === 0 ? "/shop" : "/new-in"}
+            key={title}
+          >
             <div className="relative aspect-[3/4] w-full">
               <Image src={img} alt={title} layout="fill" objectFit="cover" />
               <div className="absolute bottom-4 left-4 text-white text-xl font-bold drop-shadow-md">

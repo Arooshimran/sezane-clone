@@ -85,7 +85,7 @@ export default async function ArtisanalAccessoriesPage() {
     >
       <div className="backdrop-blur-[2px] min-h-screen">
         <div className="container mx-auto px-6 py-12">
-          <h1 className="text-5xl font-semibold mb-8 text-center text-black">New In</h1>
+          <h1 className="font-['Oswald'] text-5xl font-semibold mb-8 text-center text-black">New In</h1>
           {error && (
             <div className="text-red-500 text-center mb-4">{error}</div>
           )}

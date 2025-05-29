@@ -2,6 +2,9 @@ import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+
+
 async function getArtisanalAccessories(): Promise<Product[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/artisanal-accessories?populate=*`,

@@ -4,7 +4,7 @@ import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
 import ProductImageSlider from './ProductImageSlider';
 
-const API_URL = 'https://celebrated-love-44f06665d3.strapiapp.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
 // List all your collections here
 const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];

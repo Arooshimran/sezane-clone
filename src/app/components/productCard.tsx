@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Product, ProductImage } from './types';
 
 const API_URL =
-    'https://celebrated-love-44f06665d3.strapiapp.com';
+   process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
 const getImageUrl = (img: ProductImage | undefined) => {
     if (!img) return 'https://dummyimage.com/720x960';

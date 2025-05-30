@@ -2,8 +2,12 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
+import ProductImageSlider from './ProductImageSlider';
 
 const API_URL = 'https://celebrated-love-44f06665d3.strapiapp.com';
+
+// List all your collections here
+const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];
 
 function getImageUrl(img: any) {
   if (!img) return 'https://dummyimage.com/400x500';
@@ -12,43 +16,57 @@ function getImageUrl(img: any) {
 }
 
 async function getProductBySlug(slug: string): Promise<Product | null> {
-  const res = await fetch(
-    `${API_URL}/api/artisanal-accessories?filters[slug][$eq]=${slug}&populate=*`,
-    { next: { revalidate: 3600 } }
-  );
-  if (!res.ok) return null;
-  const data = await res.json();
-  if (!data.data || !data.data[0]) return null;
-  const item = data.data[0];
-  return {
-    id: item.id,
-    documentId: item.documentId,
-    title: item.name,
-    description: item.description
-      ? [
-          {
-            type: 'paragraph',
-            children: item.description.split('\n').map((line: string) => ({
-              type: 'text',
-              text: line,
-            })),
-          },
-        ]
-      : [],
-    price: item.price,
-    slug: item.slug,
-    images: (item.images || []).map((img: any) => ({
-      id: img.id,
-      url: img.url,
-      formats: img.formats,
-    })),
-    category: item.category
-      ? {
-          id: item.category.id,
-          name: item.category.name,
-        }
-      : { id: 0, name: 'Uncategorized' },
-  };
+  for (const collection of COLLECTIONS) {
+    const res = await fetch(
+      `${API_URL}/api/${collection}?filters[slug][$eq]=${slug}&populate=*`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) continue;
+    const data = await res.json();
+    if (!data.data || !data.data[0]) continue;
+    const item = data.data[0];
+
+    const category =
+      item.category ||
+      (typeof item.price === "undefined" && item.category) ||
+      { id: 0, name: "Uncategorized" };
+
+    const price =
+      typeof item.price !== "undefined"
+        ? item.price
+        : (item.category && item.category.price) || 0;
+
+    return {
+      id: item.id,
+      documentId: item.documentId,
+      title: item.name,
+      description: item.description
+        ? [
+            {
+              type: "paragraph",
+              children: item.description.split("\n").map((line: string) => ({
+                type: "text",
+                text: line,
+              })),
+            },
+          ]
+        : [],
+      price,
+      slug: item.slug,
+      images: (item.images || []).map((img: any) => ({
+        id: img.id,
+        url: img.url,
+        formats: img.formats,
+      })),
+      category: category
+        ? {
+            id: category.id,
+            name: category.name,
+          }
+        : { id: 0, name: "Uncategorized" },
+    };
+  }
+  return null;
 }
 
 export default async function ProductDetailPage({
@@ -60,6 +78,7 @@ export default async function ProductDetailPage({
   const product = await getProductBySlug(slug);
 
   if (!product) return notFound();
+
 
   return (
     <div
@@ -73,35 +92,7 @@ export default async function ProductDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left - Images Section */}
           <div className="relative">
-            <div className="flex gap-4">
-              {/* Main large image */}
-              {product.images.length > 0 && (
-                <div className="flex-1">
-                  <div className="aspect-[4/5]">
-                    <img
-                      src={getImageUrl(product.images[0])}
-                      alt={product.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-              
-              {/* Small thumbnails column on the right */}
-              {product.images.length > 1 && (
-                <div className="flex flex-col gap-2 w-16">
-                  {product.images.slice(1).map((img, idx) => (
-                    <div key={img.id} className="aspect-[4/5]">
-                      <img
-                        src={getImageUrl(img)}
-                        alt={`${product.title} ${idx + 2}`}
-                        className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductImageSlider images={product.images} title={product.title} />
           </div>
 
           {/* Right - Product Info */}

@@ -9,11 +9,11 @@ const API_URL = 'https://celebrated-love-44f06665d3.strapiapp.com';
 // List all your collections here
 const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];
 
-function getImageUrl(img: any) {
-  if (!img) return 'https://dummyimage.com/400x500';
-  const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
-  return url?.startsWith('http') ? url : API_URL + url;
-}
+// function getImageUrl(img: any) {
+//   if (!img) return 'https://dummyimage.com/400x500';
+//   const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
+//   return url?.startsWith('http') ? url : API_URL + url;
+// }
 
 async function getProductBySlug(slug: string): Promise<Product | null> {
   for (const collection of COLLECTIONS) {

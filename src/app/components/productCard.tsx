@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
-import { Product, ProductImage } from './types';
+import { Product } from './types';
 import { getImageUrl } from '../lib/api';
 
 

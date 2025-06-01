@@ -4,15 +4,17 @@ import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
 import { Product, ProductImage } from './types';
+import { getImageUrl } from '../lib/api';
 
-const API_URL =
-   process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
-const getImageUrl = (img: ProductImage | undefined) => {
-    if (!img) return 'https://dummyimage.com/720x960';
-    const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
-    return url?.startsWith('http') ? url : API_URL + url;
-};
+// const API_URL =
+//    process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+
+// const getImageUrl = (img: ProductImage | undefined) => {
+//     if (!img) return 'https://dummyimage.com/720x960';
+//     const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
+//     return url?.startsWith('http') ? url : API_URL + url;
+// };
 
 const ProductCard = ({ product }: { product: Product }) => {
     const [isHovered, setIsHovered] = useState(false);

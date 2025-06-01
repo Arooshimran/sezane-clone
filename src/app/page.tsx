@@ -46,8 +46,8 @@ export default function SezaneClone() {
             <div className="relative aspect-[3/4] w-full">
               <Image src={img} alt={title} layout="fill" objectFit="cover" />
               <div className="absolute inset-0 flex justify-center items-center ml-8 text-white text-xl font-bold drop-shadow-md">
-  {title}
-</div>
+                {title}
+              </div>
 
             </div>
           </Link>

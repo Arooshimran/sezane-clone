@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
 import ProductImageSlider from './ProductImageSlider';
+import RecommendedProducts from './RecommendedProducts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
 
@@ -207,6 +208,12 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </div>
+
+        {/* Recommended Products Section */}
+         <RecommendedProducts 
+          currentSlug={product.slug || ''} 
+          categoryName={product.category?.name || 'Uncategorized'} 
+        />
       </div>
     </div>
   );

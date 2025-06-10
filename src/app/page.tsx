@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import SezaneNavbar from './components/navbar';
 const categories = [
   { title: 'SHOP', img: '/shop.avif' },
   { title: 'BAGS & BASKETS BAGS', img: '/baskets.avif' },
@@ -13,8 +13,11 @@ const categories = [
 ];
 
 export default function SezaneClone() {
+
   return (
+
     <div className="bg-white text-black">
+      <SezaneNavbar/>
       {/* Hero section */}
       {/* Hero section */}
       <div className="grid grid-cols-1 md:grid-cols-2 h-[150vh]">

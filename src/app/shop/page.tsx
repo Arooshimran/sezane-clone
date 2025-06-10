@@ -3,6 +3,7 @@ import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';
 import { getNauticalStripe } from '../lib/api';  // Adjust path as needed
+import SezaneNavbar from '../components/navbar'; 
 
 function chunkProducts(products: Product[]): Product[][] {
   const chunks: Product[][] = [];
@@ -41,6 +42,7 @@ export default async function ArtisanalAccessoriesPage() {
         backgroundImage: "url('/45-degree-fabric-light.webp')",
       }}
     >
+      <SezaneNavbar/>
       <div className="backdrop-blur-[2px] min-h-screen">
         <div className="container mx-auto px-6 py-12">
           <h1 className="font-['Oswald'] text-5xl font-semibold mb-8 text-center text-black">

@@ -5,7 +5,7 @@ import { Heart } from 'lucide-react';
 import Link from 'next/link';
 import { Product } from './types';
 import { getImageUrl } from '../lib/api';
-
+// import { useCart } from '../context/cartContext';
 
 // const API_URL =
 //    process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
@@ -20,6 +20,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [currentImgIdx, setCurrentImgIdx] = useState(0);
+    // const { addToCart } = useCart();
 
     const toggleWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -108,10 +109,10 @@ const ProductCard = ({ product }: { product: Product }) => {
                     >
                         <div className="flex justify-between items-start">
                             <div>
-                                <h3 className="font-['Oswald'] font-bold text-lg uppercase tracking-wide leading-tight">
+                                <h3 className="font-['Oswald'] text-black font-bold text-lg uppercase tracking-wide leading-tight">
                                     {product.title}
                                 </h3>
-                                <p className="font-['Oswald'] font-bold text-base uppercase tracking-wide mt-1">
+                                <p className="font-['Oswald'] text-black font-bold text-base uppercase tracking-wide mt-1">
                                     {product.price}AR$
                                 </p>
                             </div>
@@ -140,7 +141,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                             <span className="text-xs text-gray-500 uppercase">TU</span>
                             <Link
                                 href={`/products/${product.slug}`}
-                                className="font-['Oswald'] flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline"
+                                className="font-['Oswald'] text-black flex items-center gap-2 text-xs font-semibold uppercase tracking-wide hover:underline"
                             >
                                 View Details
                                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
@@ -157,6 +158,9 @@ const ProductCard = ({ product }: { product: Product }) => {
             <div className="text-center mt-4 font-semibold text-base text-black">
                 {product.title}
             </div>
+            {/* <button onClick={() => addToCart(product)} style={{ marginTop: 8 }}>
+                Add to Cart
+            </button> */}
         </div>
     );
 };

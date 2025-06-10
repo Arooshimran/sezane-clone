@@ -1,9 +1,8 @@
-// src/app/artisanal-accessories/page.tsx (or wherever your page is)
-
 import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';
-import { getArtisanalAccessories } from '../lib/api'; // Adjust the path as needed
+import { getArtisanalAccessories } from '../lib/api'; 
+import SezaneNavbar from '../components/navbar';
 
 function chunkProducts(products: Product[]) {
   const chunks: Product[][] = [];
@@ -42,6 +41,7 @@ export default async function ArtisanalAccessoriesPage() {
         backgroundImage: "url('/45-degree-fabric-light.webp')",
       }}
     >
+      <SezaneNavbar/>
       <div className="backdrop-blur-[2px] min-h-screen">
         <div className="container mx-auto px-6 py-12">
           <h1 className="font-['Oswald'] text-5xl font-semibold mb-8 text-center text-black">
@@ -72,4 +72,31 @@ export default async function ArtisanalAccessoriesPage() {
       </div>
     </div>
   );
+}
+
+// For static params (if you want to statically generate dynamic routes)
+// Not usually needed for a static page like /new-in, but here's the pattern:
+export async function getStaticParams() {
+  // Example: return [{ slug: 'something' }]
+  return [];
+}
+
+// For metadata (SEO, title, etc.)
+export async function generateMetadata() {
+  return {
+    title: 'New In | Sézane',
+    description: 'Discover the latest arrivals in our artisanal accessories collection.',
+    openGraph: {
+      title: 'New In | Sézane',
+      description: 'Discover the latest arrivals in our artisanal accessories collection.',
+      images: [
+        {
+          url: '/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'New In at Sézane',
+        },
+      ],
+    },
+  };
 }

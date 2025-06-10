@@ -41,5 +41,9 @@ export interface Product {
   price: number; // required
   slug?: string;
   images: ProductImage[]; // required
-  category: Category; // required
+  category: Category;
+   // required
+}
+export interface CartItem extends Product {
+  quantity: number; // required
 }

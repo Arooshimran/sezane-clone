@@ -76,10 +76,7 @@ export default async function ArtisanalAccessoriesPage() {
 
 // For static params (if you want to statically generate dynamic routes)
 // Not usually needed for a static page like /new-in, but here's the pattern:
-export async function getStaticParams() {
-  // Example: return [{ slug: 'something' }]
-  return [];
-}
+
 
 // For metadata (SEO, title, etc.)
 export async function generateMetadata() {

@@ -1,8 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 
 export default function ProductTabs({ description }: { description: any }) {
   const [activeTab, setActiveTab] = useState(0);
+  const [hoveredTab, setHoveredTab] = useState<number | null>(null); // NEW
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
 
   const tabs = [
     {
@@ -42,13 +45,25 @@ export default function ProductTabs({ description }: { description: any }) {
     },
   ];
 
+  useLayoutEffect(() => {
+    const idx = hoveredTab !== null ? hoveredTab : activeTab;
+    const current = tabRefs.current[idx];
+    if (current) {
+      setUnderlineStyle({
+        left: current.offsetLeft,
+        width: current.offsetWidth,
+      });
+    }
+  }, [activeTab, hoveredTab, tabs.length]); // Add hoveredTab
+
   return (
     <div>
       <div className="border-b border-gray-200 relative">
-        <nav className="flex space-x-8 relative">
+        <nav className="flex space-x-6 relative">
           {tabs.map((tab, idx) => (
             <button
               key={tab.label}
+              ref={el => { tabRefs.current[idx] = el; }}
               className={`pb-2 text-sm font-bold font-['Oswald'] transition-colors ${
                 activeTab === idx
                   ? 'text-black'
@@ -56,7 +71,9 @@ export default function ProductTabs({ description }: { description: any }) {
               }`}
               onClick={() => setActiveTab(idx)}
               type="button"
-              style={{ position: 'relative' }}
+              style={{ position: 'relative', background: 'none', border: 'none' }}
+              onMouseEnter={() => setHoveredTab(idx)} // NEW
+              onMouseLeave={() => setHoveredTab(null)} // NEW
             >
               {tab.label}
             </button>
@@ -64,10 +81,10 @@ export default function ProductTabs({ description }: { description: any }) {
         </nav>
         {/* Animated underline */}
         <div
-          className="absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300"
+          className=" absolute bottom-0 h-0.5 bg-black transition-all duration-300"
           style={{
-            width: `calc(100% / ${tabs.length})`,
-            transform: `translateX(${activeTab * 100}%)`,
+            left: underlineStyle.left,
+            width: underlineStyle.width,
           }}
         />
       </div>

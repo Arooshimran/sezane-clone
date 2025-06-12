@@ -1,18 +1,7 @@
 // SezaneNavbar.tsx
 'use client';
-import React, { useState } from 'react';
-
-const imageSet1 = [
-    { title: 'NEW IN', img: '/new-in.avif' },
-    { title: 'ARCHIVES', img: '/archives.avif' },
-    { title: 'SHOP', img: '/shop.avif' },
-];
-
-const imageSet2 = [
-    { title: 'BASKET', img: '/baskets.avif' },
-    { title: 'JEWELRY', img: '/jewelry.avif' },
-    { title: 'SHOES', img: '/shoe.avif' },
-];
+import React, { useState, useEffect } from 'react';
+import { fetchHeroSections } from '../lib/api';
 
 const dropdownItems = [
     'SHIRTS & BLOUSES',
@@ -39,22 +28,25 @@ const discoverItems = [
 
 const SezaneNavbar = () => {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-    const [imageSetToggle, setImageSetToggle] = useState<boolean>(false);
+    const [shopImages, setShopImages] = useState<{ title: string; img: string }[]>([]);
+    const [newInImages, setNewInImages] = useState<{ title: string; img: string }[]>([]);
 
-    const handleMouseEnter = (menu: string) => {
-        setActiveDropdown(menu);
-        setImageSetToggle(menu === 'NEW IN');
-    };
+    useEffect(() => {
+        const getImages = async () => {
+            const data = await fetchHeroSections();
+            const images = (data || []).map((item: any) => ({
+                title: item.text,
+                img: item.image?.url,
+            }));
+            setShopImages(images.slice(0, 3));
+            setNewInImages(images.slice(3, 6));
+        };
+        getImages();
+    }, []);
 
-    const handleMouseLeave = () => {
-        setActiveDropdown(null);
-    };
-
-    const dropdownShouldOpen = (menu: string) =>
-        ['SHOP', 'NEW IN'].includes(menu);
-
-
-    const images = imageSetToggle ? imageSet2 : imageSet1;
+    const handleMouseEnter = (menu: string) => setActiveDropdown(menu);
+    const handleMouseLeave = () => setActiveDropdown(null);
+    const dropdownShouldOpen = (menu: string) => ['SHOP', 'NEW IN'].includes(menu);
 
     return (
         <div className="relative"
@@ -84,17 +76,14 @@ const SezaneNavbar = () => {
                                 onMouseLeave={handleMouseLeave}
                             >
                                 <div className="group relative cursor-pointer">
-                                    <span className="text-white font-medium tracking-wide transition-colors group-hover:text-black">
+                                    <span className="font-['Oswald'] text-white font-medium tracking-wide transition-colors group-hover:text-black">
                                         {label}
                                     </span>
                                     <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
                                 </div>
-
-
                             </div>
                         ))}
                     </div>
-
                 </div>
             </nav>
 
@@ -105,22 +94,22 @@ const SezaneNavbar = () => {
                 onMouseEnter={() => setActiveDropdown(activeDropdown)}
                 onMouseLeave={handleMouseLeave}
             >
-                <div className=" backdrop-blur-sm border-b border-gray-100 shadow-lg py-8"
+                <div className="backdrop-blur-sm border-b border-gray-100 shadow-lg py-8"
                     style={{
                         backgroundColor: '#f8f6f1',
                         backgroundImage: "url('/45-degree-fabric-light.webp')",
                     }}>
                     <div className="max-w-7xl mx-auto px-4">
-                        <div className="grid grid-cols-4 gap-8">
+                        <div className="flex gap-8">
                             {/* First Column */}
-                            <div className="col-span-1">
-                                <h3 className="text-black font-bold mb-4 tracking-wide">
+                            <div className="flex-1 min-w-[200px]">
+                                <h3 className="font-['Oswald'] text-black font-bold mb-4 tracking-wide uppercase text-lg">
                                     {activeDropdown === 'NEW IN' ? 'NEW COLLECTION' : 'CATEGORIES'}
                                 </h3>
-                                <ul className="space-y-3">
+                                <ul className="space-y-2">
                                     {dropdownItems.map((item, index) => (
                                         <li key={index}>
-                                            <button className="text-gray-600 hover:text-black transition-colors text-left font-light tracking-wide">
+                                            <button className="text-gray-700 hover:text-black transition-colors text-left font-light tracking-wide uppercase text-base">
                                                 {item}
                                             </button>
                                         </li>
@@ -129,12 +118,14 @@ const SezaneNavbar = () => {
                             </div>
 
                             {/* Second Column */}
-                            <div className="col-span-1">
-                                <h3 className="text-black font-bold mb-4 tracking-wide">DISCOVER</h3>
-                                <ul className="space-y-3">
+                            <div className="flex-1 min-w-[180px]">
+                                <h3 className="font-['Oswald'] text-black font-bold mb-4 tracking-wide uppercase text-lg">
+                                    DISCOVER
+                                </h3>
+                                <ul className="space-y-2">
                                     {discoverItems.map((item, index) => (
                                         <li key={index}>
-                                            <button className="text-gray-600 hover:text-black transition-colors text-left font-light tracking-wide">
+                                            <button className="font-['Oswald'] text-gray-700 hover:text-black transition-colors text-left font-light tracking-wide uppercase text-base">
                                                 {item}
                                             </button>
                                         </li>
@@ -142,21 +133,25 @@ const SezaneNavbar = () => {
                                 </ul>
                             </div>
 
-                            {/* Third and Fourth Columns - Images */}
-                            <div className="col-span-2 grid grid-cols-3 gap-4 h-80">
-                                {images.map(({ title, img }, idx) => (
+                            {/* Third Column: Images from API */}
+                            <div className="flex-[2] flex gap-6">
+                                {(activeDropdown === 'SHOP' ? shopImages : activeDropdown === 'NEW IN' ? newInImages : []).map(({ title, img }, idx) => (
                                     <div
                                         key={idx}
-                                        className="relative rounded overflow-hidden group cursor-pointer"
+                                        className="relative rounded overflow-hidden group cursor-pointer flex-1 min-w-0"
+                                        style={{ aspectRatio: '3/4', maxWidth: 220 }}
                                     >
-                                        <img
-                                            src={img}
-                                            alt={title}
-                                            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                                        />
+                                        {img && (
+                                            <img
+                                                src={img}
+                                                alt={title}
+                                                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                                                style={{ aspectRatio: '3/4', height: '100%' }}
+                                            />
+                                        )}
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                        <div className="absolute bottom-4 left-4 text-white">
-                                            <h4 className="text-2xl font-bold">{title}</h4>
+                                        <div className="font-['Oswald'] absolute bottom-4 left-4 text-white">
+                                            <h4 className="font-['Oswald'] text-2xl font-bold uppercase">{title}</h4>
                                         </div>
                                     </div>
                                 ))}

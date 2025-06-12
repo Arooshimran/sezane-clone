@@ -43,14 +43,14 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
       title: item.name,
       description: item.description
         ? [
-            {
-              type: "paragraph",
-              children: item.description.split("\n").map((line: string) => ({
-                type: "text",
-                text: line,
-              })),
-            },
-          ]
+          {
+            type: "paragraph",
+            children: item.description.split("\n").map((line: string) => ({
+              type: "text",
+              text: line,
+            })),
+          },
+        ]
         : [],
       price,
       slug: item.slug,
@@ -61,9 +61,9 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
       })),
       category: category
         ? {
-            id: category.id,
-            name: category.name,
-          }
+          id: category.id,
+          name: category.name,
+        }
         : { id: 0, name: "Uncategorized" },
     };
   }
@@ -89,7 +89,7 @@ export default async function ProductDetailPage({
         backgroundImage: "url('/45-degree-fabric-light.webp')",
       }}
     >
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left - Images Section */}
@@ -123,11 +123,19 @@ export default async function ProductDetailPage({
             {/* Quality Icons */}
             <div className="grid grid-cols-4 gap-4 py-2 border-t border-gray-100">
               <div className="text-center relative group">
-                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center overflow-hidden"
+                  style={{
+                    backgroundColor: "#f8f6f1",
+                    backgroundImage: "url('/45-degree-fabric-light.webp')",
+                  }}>
                   <img
                     src="/oeko-tex-certified.webp"
                     alt="OEKO TEX®"
                     className="w-8 h-8 object-contain"
+                    style={{
+                      backgroundColor: "#f8f6f1",
+                      backgroundImage: "url('/45-degree-fabric-light.webp')",
+                    }}
                   />
                 </div>
                 <p className="text-xs text-gray-600 font-['Oswald']">OEKO TEX®</p>
@@ -138,11 +146,19 @@ export default async function ProductDetailPage({
                 </div>
               </div>
               <div className="text-center relative group">
-                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center overflow-hidden"
+                  style={{
+                    backgroundColor: "#f8f6f1",
+                    backgroundImage: "url('/45-degree-fabric-light.webp')",
+                  }}>
                   <img
                     src="/organic-materials.webp"
                     alt="Organic"
                     className="w-8 h-8 object-contain"
+                    style={{
+                      backgroundColor: "#f8f6f1",
+                      backgroundImage: "url('/45-degree-fabric-light.webp')",
+                    }}
                   />
                 </div>
                 <p className="text-xs text-gray-600 font-['Oswald']">Organic</p>
@@ -153,11 +169,19 @@ export default async function ProductDetailPage({
                 </div>
               </div>
               <div className="text-center relative group">
-                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center overflow-hidden"
+                  style={{
+                    backgroundColor: "#f8f6f1",
+                    backgroundImage: "url('/45-degree-fabric-light.webp')",
+                  }}>
                   <img
                     src="/recycled-packaging.webp"
                     alt="Recycled"
                     className="w-8 h-8 object-contain"
+                    style={{
+                      backgroundColor: "#f8f6f1",
+                      backgroundImage: "url('/45-degree-fabric-light.webp')",
+                    }}
                   />
                 </div>
                 <p className="text-xs text-gray-600 font-['Oswald']">Recycled</p>
@@ -168,7 +192,11 @@ export default async function ProductDetailPage({
                 </div>
               </div>
               <div className="text-center relative group">
-                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
+                <div className="w-12 h-12 mx-auto mb-2 rounded-full border border-gray-200 flex items-center justify-center  overflow-hidden"
+                  style={{
+                    backgroundColor: "#f8f6f1",
+                    backgroundImage: "url('/45-degree-fabric-light.webp')",
+                  }}>
                   <img
                     src="/audited-factory.webp"
                     alt="Audited"
@@ -192,14 +220,17 @@ export default async function ProductDetailPage({
                   <button
                     key={size}
                     className="border border-gray-300 py-3 px-4 text-center text-sm font-medium hover:border-black transition-colors bg-white"
-                  style={{backgroundColor: "#f8f6f1"}}>
+                    style={{
+                      backgroundColor: "#f8f6f1",
+                      backgroundImage: "url('/45-degree-fabric-light.webp')",
+                    }}>
                     {size}
                   </button>
                 ))}
               </div>
             </div>
 
-           
+
 
             {/* Add to Cart Button */}
             <div className="space-y-4 pt-4">
@@ -211,9 +242,9 @@ export default async function ProductDetailPage({
         </div>
 
         {/* Recommended Products Section */}
-         <RecommendedProducts 
-          currentSlug={product.slug || ''} 
-          categoryName={product.category?.name || 'Uncategorized'} 
+        <RecommendedProducts
+          currentSlug={product.slug || ''}
+          categoryName={product.category?.name || 'Uncategorized'}
         />
       </div>
     </div>

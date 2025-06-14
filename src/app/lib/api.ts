@@ -1,7 +1,7 @@
 import { Product } from '../components/types';
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+  process.env.NEXT_PUBLIC_API_URL;
 
 export const getImageUrl = (img?: {
   url: string;
@@ -15,7 +15,6 @@ export const getImageUrl = (img?: {
   const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
   return url.startsWith('http') ? url : API_URL + url;
 };
-
 
 
 export async function getArtisanalAccessories(): Promise<Product[]> {

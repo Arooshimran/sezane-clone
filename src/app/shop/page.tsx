@@ -78,3 +78,22 @@ export default async function ArtisanalAccessoriesPage() {
     </div>
   );
 }
+
+export async function generateMetadata() {
+  return {
+    title: 'Summer Archives | Sézane',
+    description: 'Discover the latest arrivals in our artisanal accessories collection.',
+    openGraph: {
+      title: 'Summer Archives | Sézane',
+      description: 'Discover the latest arrivals in our artisanal accessories collection.',
+      images: [
+        {
+          url: '/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'New In at Sézane',
+        },
+      ],
+    },
+  };
+}

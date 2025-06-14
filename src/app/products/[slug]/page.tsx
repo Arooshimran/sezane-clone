@@ -10,11 +10,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f0
 // List all your collections here
 const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];
 
-// function getImageUrl(img: any) {
-//   if (!img) return 'https://dummyimage.com/400x500';
-//   const url = img.formats?.large?.url || img.formats?.medium?.url || img.url;
-//   return url?.startsWith('http') ? url : API_URL + url;
-// }
 
 async function getProductBySlug(slug: string): Promise<Product | null> {
   for (const collection of COLLECTIONS) {

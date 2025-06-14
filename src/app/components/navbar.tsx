@@ -38,7 +38,7 @@ const SezaneNavbar = () => {
                 title: item.text,
                 img: item.image?.url,
             }));
-            setShopImages(images.slice(0, 3));
+            setShopImages(images.slice(6,9));
             setNewInImages(images.slice(3, 6));
         };
         getImages();

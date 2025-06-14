@@ -42,8 +42,17 @@ export interface Product {
   slug?: string;
   images: ProductImage[]; // required
   category: Category;
-   // required
 }
+
 export interface CartItem extends Product {
   quantity: number; // required
+}
+
+export interface HeroSection {
+  id: string | number;
+  link?: string;
+  text?: string;
+  image?: {
+    url?: string;
+  };
 }

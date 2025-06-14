@@ -5,15 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SezaneNavbar from './components/navbar';
 import { fetchHeroSections } from './lib/api';
+import { HeroSection } from './components/types';
 
-type HeroSection = {
-  id: string | number;
-  link?: string;
-  text?: string;
-  image?: {
-    url?: string;
-  };
-};
 
 export default function SezaneClone() {
   const [heroSections, setHeroSections] = useState<HeroSection[]>([]);

@@ -19,9 +19,12 @@ export const getImageUrl = (img?: {
 
 
 export async function getArtisanalAccessories(): Promise<Product[]> {
-  const res = await fetch(`${API_URL}/api/artisanal-accessories?populate=*`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
-  });
+ // Example: only fetch required image formats and category name
+const res = await fetch(
+  `${API_URL}/api/artisanal-accessories?populate[images][fields][0]=url&populate[images][fields][1]=formats&populate[category][fields][0]=name&fields[0]=slug&fields[1]=name&fields[2]=price&fields[3]=description`,
+  { next: { revalidate: 3600 } }
+);
+
 
   if (!res.ok) throw new Error('Failed to fetch');
 

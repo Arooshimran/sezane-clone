@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { Product } from './types';
 import { getImageUrl } from '../lib/api';
 import ProductHoverBox from './ProductHoverBox';

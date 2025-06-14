@@ -1,23 +1,18 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import SezaneNavbar from './components/navbar';
 import { fetchHeroSections } from './lib/api';
-import { HeroSection } from './components/types';
+import SezaneNavbar from './components/navbar';
 
+// Define the type for hero section items
+type HeroSection = {
+  id: string | number;
+  image?: { url: string };
+  text?: string;
+  link?: string;
+};
 
-export default function SezaneClone() {
-  const [heroSections, setHeroSections] = useState<HeroSection[]>([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await fetchHeroSections();
-      setHeroSections(data);
-    };
-    getData();
-  }, []);
+export default async function SezaneClonePage() {
+  const heroSections: HeroSection[] = await fetchHeroSections();
 
   return (
     <div className="bg-white text-black">
@@ -41,10 +36,12 @@ export default function SezaneClone() {
                   style={{ objectFit: 'cover' }}
                   priority
                 />
-              ) : null}
+              ) : (
+                <div className="bg-gray-200 w-full h-full" />
+              )}
               <div className="absolute inset-0 flex justify-center items-center">
                 <h2 className="text-4xl font-bold text-white drop-shadow-lg ml-8">
-                  {item.text}
+                  {item.text || ''}
                 </h2>
               </div>
             </Link>
@@ -57,10 +54,7 @@ export default function SezaneClone() {
         {heroSections.slice(2).map((item) => {
           const imgUrl = item.image?.url;
           return (
-            <Link
-              key={item.id}
-              href={item.link || '#'}
-            >
+            <Link key={item.id} href={item.link || '#'}>
               <div className="relative aspect-[3/4] w-full">
                 {imgUrl ? (
                   <Image
@@ -69,9 +63,11 @@ export default function SezaneClone() {
                     fill
                     style={{ objectFit: 'cover' }}
                   />
-                ) : null}
+                ) : (
+                  <div className="bg-gray-200 w-full h-full" />
+                )}
                 <div className="absolute inset-0 flex justify-center items-center ml-8 text-white text-xl font-bold drop-shadow-md">
-                  {item.text}
+                  {item.text || ''}
                 </div>
               </div>
             </Link>

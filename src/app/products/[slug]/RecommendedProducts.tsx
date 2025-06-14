@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 const API_URL = 'https://celebrated-love-44f06665d3.strapiapp.com';
 const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];
 

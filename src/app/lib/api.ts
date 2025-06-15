@@ -109,7 +109,7 @@ export async function getNauticalStripe(): Promise<Product[]> {
 export async function fetchHeroSections() {
   try {
     const res = await fetch(
-      'https://celebrated-love-44f06665d3.strapiapp.com/api/hersections?populate=image',
+      `${API_URL}/api/hersections?populate=image`,
       // { next: { revalidate: 3600 } } // prevent Next.js from caching for fresh data
     );
     if (!res.ok) throw new Error('Network response was not ok');

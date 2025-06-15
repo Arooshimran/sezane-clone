@@ -1,4 +1,5 @@
 export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 import Image from 'next/image';
 import Link from 'next/link';

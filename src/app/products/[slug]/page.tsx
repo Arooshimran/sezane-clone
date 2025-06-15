@@ -1,4 +1,6 @@
 export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 
 import React from 'react';
 import { notFound } from 'next/navigation';
@@ -7,8 +9,9 @@ import ProductTabs from './ProductTabs';
 import ProductImageSlider from './ProductImageSlider';
 import type { Metadata } from 'next';
 import RecommendedProducts from './RecommendedProducts';
+import SezaneNavbar from '../../components/navbar';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // List all your collections here
 const COLLECTIONS = ['artisanal-accessories', 'nautical-stripes'];
@@ -87,7 +90,9 @@ export default async function ProductDetailPage({
         backgroundImage: "url('/45-degree-fabric-light.webp')",
       }}
     >
-
+      <SezaneNavbar />
+      {/* Add gap below navbar */}
+      <div className="h-8" /> {/* 2rem gap, adjust as needed */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left - Images Section */}

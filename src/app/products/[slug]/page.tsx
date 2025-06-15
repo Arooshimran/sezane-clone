@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
 import ProductImageSlider from './ProductImageSlider';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import RecommendedProducts from './RecommendedProducts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';

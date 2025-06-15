@@ -1,4 +1,6 @@
 // pages/ArtisanalAccessoriesPage.tsx or wherever your page is
+export const dynamic = 'force-static';
+
 import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';

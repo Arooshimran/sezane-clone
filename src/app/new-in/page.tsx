@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import React from 'react';
 import ProductCard from '../components/productCard';
 import { Product } from '../components/types';
@@ -74,11 +76,6 @@ export default async function ArtisanalAccessoriesPage() {
   );
 }
 
-// For static params (if you want to statically generate dynamic routes)
-// Not usually needed for a static page like /new-in, but here's the pattern:
-
-
-// For metadata (SEO, title, etc.)
 export async function generateMetadata() {
   return {
     title: 'New In | Sézane',

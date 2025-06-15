@@ -1,8 +1,11 @@
+export const dynamic = 'force-static';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Product } from '../../components/types';
 import ProductTabs from './ProductTabs';
 import ProductImageSlider from './ProductImageSlider';
+import type { Metadata } from 'next';
 import RecommendedProducts from './RecommendedProducts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://celebrated-love-44f06665d3.strapiapp.com';
@@ -245,3 +248,58 @@ export default async function ProductDetailPage({
     </div>
   );
 }
+
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  // Protect against missing slug
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+
+  if (!product) {
+    return {
+      title: 'Product Not Found',
+      description: 'Sorry, this product does not exist.',
+    };
+  }
+
+  const title = `${product.title} | Sezane Inspired`;
+  const description = product.description?.[0]?.children
+    ?.map(child => child.text)
+    ?.join(' ') || 'Explore this product on our store.';
+
+  const imageUrl = product.images?.[0]?.url?.startsWith('http')
+    ? product.images[0].url
+    : `${API_URL}${product.images?.[0]?.url || ''}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 600,
+          alt: product.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
+
+// export default async function ProductDetailPage({
+//   params,
+// }: {
+//   params: Promise<{ slug: string }>;
+// }) {
+//   const { slug } = await params;
+//   const product = await getProductBySlug(slug);

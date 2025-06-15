@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { fetchHeroSections } from './lib/api';
@@ -76,4 +78,11 @@ export default async function SezaneClonePage() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return {
+    title: 'Home | Sézane',
+    description: 'Discover the latest fashion trends and products from Sézane.',
+  };
 }

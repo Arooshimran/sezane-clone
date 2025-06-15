@@ -21,7 +21,7 @@ export async function getArtisanalAccessories(): Promise<Product[]> {
  // Example: only fetch required image formats and category name
 const res = await fetch(
   `${API_URL}/api/artisanal-accessories?populate[images][fields][0]=url&populate[images][fields][1]=formats&populate[category][fields][0]=name&fields[0]=slug&fields[1]=name&fields[2]=price&fields[3]=description`,
-  { next: { revalidate: 3600 } }
+  // { next: { revalidate: 3600 } }
 );
 
 
@@ -62,7 +62,7 @@ const res = await fetch(
 
 export async function getNauticalStripe(): Promise<Product[]> {
   const res = await fetch(`${API_URL}/api/nautical-stripes?populate=*`, {
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    // next: { revalidate: 3600 }, // Cache for 1 hour
   });
 
   if (!res.ok) {
@@ -110,7 +110,7 @@ export async function fetchHeroSections() {
   try {
     const res = await fetch(
       'https://celebrated-love-44f06665d3.strapiapp.com/api/hersections?populate=image',
-      { next: { revalidate: 3600 } } // prevent Next.js from caching for fresh data
+      // { next: { revalidate: 3600 } } // prevent Next.js from caching for fresh data
     );
     if (!res.ok) throw new Error('Network response was not ok');
     const data = await res.json();

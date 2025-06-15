@@ -252,8 +252,7 @@ export default async function ProductDetailPage({
 export async function generateMetadata(
   { params }: { params: { slug: string } }
 ): Promise<Metadata> {
-  // Protect against missing slug
-  const { slug } = await params;
+  const { slug } = params;
   const product = await getProductBySlug(slug);
 
   if (!product) {
